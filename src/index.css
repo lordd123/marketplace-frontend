@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #FAFAF7;
+  --color-ink: #111111;
+  --color-ink-soft: #5C5C58;
+  --color-line: #E5E4DD;
+  --color-action: #1D4ED8;
+  --color-action-dark: #1834A6;
+  --color-alert: #E11D2E;
+  --color-surface: #FFFFFF;
+
+  --font-display: "Archivo Black", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-tag: "IBM Plex Mono", monospace;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-33.333%); }
+}
+
+.animate-marquee {
+  animation: marquee 18s linear infinite;
+}
