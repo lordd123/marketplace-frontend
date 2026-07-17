@@ -43,4 +43,4 @@ export default function FeaturedCarousel({ products, onSelect }) {
       </div>
     </button>
   );
-}w
+}
