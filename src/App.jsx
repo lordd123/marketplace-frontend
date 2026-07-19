@@ -30,7 +30,10 @@ function App() {
               </AdminRoute>
             }
           />
-          <Route path="/" element={<Navigate to="/store" />} />
+          <Route
+            path="/"
+            element={<Navigate to={localStorage.getItem('token') ? '/store' : '/login'} />}
+          />
         </Routes>
       </BrowserRouter>
     </CartProvider>
