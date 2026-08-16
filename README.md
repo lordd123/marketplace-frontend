@@ -2,7 +2,7 @@
 
 Loja online (e-commerce) com identidade visual própria, inspirada na cultura de "drop" de streetwear — estoque limitado, contagem regressiva e tags de escassez. Frontend em React consumindo uma API própria com carrinho persistente, checkout via Stripe e painel administrativo com controle de acesso por papel.
 
-🔗 **[Ver loja ao vivo](https://marketplace-frontend.vercel.app)**
+🔗 **[Ver loja ao vivo](https://marketplace-fronteeend.vercel.app/login)**
 🔗 **[Repositório do backend](https://github.com/lordd123/marketplace-backend)**
 
 ## Screenshots
