@@ -1,16 +1,67 @@
-# React + Vite
+# Marketplace Storefront — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Loja online (e-commerce) com identidade visual própria, inspirada na cultura de "drop" de streetwear — estoque limitado, contagem regressiva e tags de escassez. Frontend em React consumindo uma API própria com carrinho persistente, checkout via Stripe e painel administrativo com controle de acesso por papel.
 
-Currently, two official plugins are available:
+🔗 **[Ver loja ao vivo](https://marketplace-frontend.vercel.app)**
+🔗 **[Repositório do backend](https://github.com/lordd123/marketplace-backend)**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Screenshots
 
-## React Compiler
+### Vitrine
+![Vitrine](./screenshots/store.png)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Página de produto
+![Produto](./screenshots/product.png)
 
-## Expanding the Oxlint configuration
+### Carrinho e checkout
+![Carrinho](./screenshots/cart.png)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+
+## Tecnologias
+
+- React + Vite
+- Tailwind CSS v4
+- React Router
+- Axios
+- Lucide React (ícones)
+- Stripe Checkout (integração via API própria)
+
+## Funcionalidades
+
+- **Vitrine com busca e filtro** por categoria, com carrossel de produtos em destaque
+- **Tags de escassez dinâmicas** — mostra "X unidades restantes" quando o estoque de uma variação está baixo, e "esgotado" quando zera
+- **Carrinho persistente**, vinculado à conta do usuário (não se perde ao trocar de dispositivo)
+- **Checkout real via Stripe**, com redirecionamento para páginas de sucesso e cancelamento
+- **Autenticação com dois perfis** (cliente e admin), com o painel administrativo só acessível a quem tem `role: admin`
+- **Painel admin completo** para cadastrar produtos, variações (tamanho/cor/estoque) e visualizar o catálogo, sem depender de Postman
+
+## Como rodar localmente
+
+```bash
+git clone https://github.com/lordd123/marketplace-frontend.git
+cd marketplace-frontend
+npm install
+```
+
+Cria um `.env`:
+```
+VITE_API_URL=http://localhost:3000/api
+```
+
+```bash
+npm run dev
+```
+
+> Requer o [backend](https://github.com/lordd123/marketplace-backend) rodando em paralelo.
+
+## Desafios e aprendizados
+
+- **Variáveis de ambiente e build-time vs runtime:** o Vite grava o valor de `VITE_API_URL` dentro do JavaScript compilado no momento do build — não é lido depois, em tempo real. Configurar a variável na Vercel depois de um deploy já feito não tem efeito até um novo build. Isso me ensinou a diferença entre configuração de build e configuração de runtime, algo que passa despercebido até dar errado em produção.
+
+- **Controle de acesso por papel (RBAC) no frontend:** o painel admin só é acessível se o usuário autenticado tiver `role: admin`, verificado tanto na API (o que realmente protege) quanto no frontend (para não mostrar a opção a quem não pode usá-la). O `role` nunca é definido pelo próprio usuário no cadastro — só pode ser promovido diretamente no banco, evitando um problema real de segurança chamado *mass assignment* / escalonamento de privilégio.
+
+- **Sincronização de estado entre componentes:** o contador de itens no ícone do carrinho precisa refletir mudanças feitas em telas diferentes (adicionar no produto, remover no carrinho). Resolvido com Context API do React, centralizando a contagem num único lugar em vez de duplicar lógica em cada componente.
+
+## Projetos relacionados
+
+Esse é o terceiro projeto de um portfólio conectado — construí um SaaS de agendamento, depois uma ferramenta própria de auditoria de segurança, apliquei hardening nesse SaaS usando a ferramenta, e agora esse marketplace aplica os mesmos princípios de segurança (RBAC, prevenção de escalonamento de privilégio) desde o design, não como correção posterior.
